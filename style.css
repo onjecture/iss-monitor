@@ -1,0 +1,121 @@
+body {
+
+margin:0;
+
+background:#f3efe6;
+
+font-family:
+Arial, Helvetica, sans-serif;
+
+color:#222;
+
+}
+
+
+.container {
+
+width:90%;
+
+max-width:1100px;
+
+margin:30px auto;
+
+}
+
+
+header {
+
+display:flex;
+
+justify-content:space-between;
+
+border-bottom:1px solid #aaa;
+
+padding-bottom:15px;
+
+}
+
+
+h1 {
+
+font-size:22px;
+
+font-weight:500;
+
+letter-spacing:2px;
+
+}
+
+
+.live {
+
+font-size:14px;
+
+}
+
+
+.bar {
+
+display:flex;
+
+gap:40px;
+
+padding:12px 0;
+
+font-size:13px;
+
+border-bottom:1px solid #aaa;
+
+}
+
+
+#map {
+
+height:520px;
+
+margin-top:20px;
+
+border:1px solid #aaa;
+
+}
+
+
+.telemetry {
+
+display:grid;
+
+grid-template-columns:
+repeat(6,1fr);
+
+border-top:1px solid #aaa;
+
+margin-top:20px;
+
+}
+
+
+.telemetry div {
+
+padding:15px;
+
+border-right:1px solid #aaa;
+
+}
+
+
+label {
+
+font-size:11px;
+
+color:#666;
+
+}
+
+
+p {
+
+margin:8px 0 0;
+
+font-size:16px;
+
+}
