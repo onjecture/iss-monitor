@@ -1,2 +1,10 @@
 # iss-monitor
-leaflet mapping
+browser-based
+
+Uses:
+- NORAD TLE data
+- SGP4 propagation
+- satellite.js
+- Leaflet mapping
+
+
