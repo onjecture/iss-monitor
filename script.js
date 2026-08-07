@@ -5,9 +5,8 @@ const tleURL =
 let satrec;
 
 
-
 const map = L.map("map", {
-    worldCopyJump: true
+    worldCopyJump:true
 });
 
 
@@ -23,8 +22,8 @@ map.setView([0,0],2);
 const issMarker = L.circleMarker(
 [0,0],
 {
-    radius:6,
-    color:"#111",
+    radius:4,
+    stroke:false,
     fillColor:"#111",
     fillOpacity:1
 }
@@ -36,7 +35,7 @@ const pastLine = L.polyline(
 [],
 {
     color:"#777",
-    weight:1
+    weight:2
 }
 ).addTo(map);
 
@@ -45,8 +44,8 @@ const pastLine = L.polyline(
 const futureLine = L.polyline(
 [],
 {
-    color:"#333",
-    weight:1,
+    color:"#444",
+    weight:2,
     dashArray:"6,6"
 }
 ).addTo(map);
@@ -94,13 +93,11 @@ function getPosition(time){
     satellite.gstime(time);
 
 
-
     const geo =
     satellite.eciToGeodetic(
         position.position,
         gmst
     );
-
 
 
     const velocity =
@@ -119,18 +116,15 @@ function getPosition(time){
             geo.latitude
         ),
 
-
         lon:
         satellite.degreesLong(
             geo.longitude
         ),
 
-
         altitude:
         geo.height,
 
-
-        velocity: velocity
+        velocity:velocity
 
     };
 
@@ -139,7 +133,6 @@ function getPosition(time){
 
 
 function updateISS(){
-
 
     if(!satrec)
     return;
@@ -151,11 +144,10 @@ function updateISS(){
     );
 
 
-
     issMarker.setLatLng(
         [
-        point.lat,
-        point.lon
+            point.lat,
+            point.lon
         ]
     );
 
@@ -186,14 +178,13 @@ function updateISS(){
 
 function updateTrack(){
 
-
     if(!satrec)
     return;
 
 
-
     let past = [];
     let future = [];
+
 
     const now =
     new Date();
@@ -201,7 +192,6 @@ function updateTrack(){
 
 
     for(let i=90;i>=0;i--){
-
 
         const point =
         getPosition(
@@ -211,7 +201,7 @@ function updateTrack(){
         );
 
 
-        addPoint(
+        addTrackPoint(
             past,
             point
         );
@@ -222,7 +212,6 @@ function updateTrack(){
 
     for(let i=0;i<=90;i++){
 
-
         const point =
         getPosition(
             new Date(
@@ -231,7 +220,7 @@ function updateTrack(){
         );
 
 
-        addPoint(
+        addTrackPoint(
             future,
             point
         );
@@ -253,18 +242,17 @@ function updateTrack(){
 
 
 
-function addPoint(line, point){
+function addTrackPoint(line,point){
 
-
-    let last =
+    const previous =
     line[line.length-1];
 
 
-    if(last){
+    if(previous){
 
-        let difference =
+        const difference =
         Math.abs(
-            point.lon-last[1]
+            point.lon - previous[1]
         );
 
 
@@ -300,5 +288,5 @@ updateISS,
 
 setInterval(
 updateTrack,
-60000
+30000
 );
