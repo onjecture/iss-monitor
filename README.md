@@ -1,7 +1,7 @@
 # iss-monitor
 browser-based
 
-Uses:
+uses:
 - NORAD TLE data
 - SGP4 propagation
 - satellite.js
