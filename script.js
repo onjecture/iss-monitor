@@ -24,22 +24,6 @@ const issMarker = L.marker(
 }
 ).addTo(map);
 
-const pastLine = L.polyline(
-[],
-{
-    color:"#777",
-    weight:2
-}
-).addTo(map);
-const futureLine = L.polyline(
-[],
-{
-    color:"#444",
-    weight:2,
-    dashArray:"6,6"
-}
-).addTo(map);
-
 function parseTLE(text){
     const rawLines =
     text.split(/\r?\n/);
@@ -90,7 +74,6 @@ async function loadISS(){
             throw new Error("satellite.js failed to parse TLE");
         }
         satrec = newSatrec;
-        updateTrack();
     }catch(error){
         console.error("Failed to load/parse TLE, keeping last known data:",error);
     }
@@ -166,83 +149,10 @@ function updateISS(){
     new Date().toUTCString();
 }
 
-function buildTrackSegments(steps,now){
-    let segments = [];
-    let current = [];
-    for(let i=0;i<steps.length;i++){
-        const point =
-        getPosition(
-            new Date(
-                now.getTime()+steps[i]*60000
-            )
-        );
-        if(!point){
-            continue;
-        }
-        if(current.length > 0){
-            const previous =
-            current[current.length-1];
-            const crossedDateline =
-            (previous[1] > 90 && point.lon < -90) ||
-            (previous[1] < -90 && point.lon > 90);
-            if(crossedDateline){
-                segments.push(current);
-                current = [];
-            }
-        }
-        current.push([
-            point.lat,
-            point.lon
-        ]);
-    }
-    if(current.length > 0){
-        segments.push(current);
-    }
-    return segments;
-}
-
-function updateTrack(){
-    if(!satrec)
-    return;
-    const now =
-    new Date();
-
-    let pastSteps = [];
-    for(let i=-90;i<=0;i++){
-        pastSteps.push(i);
-    }
-    let futureSteps = [];
-    for(let i=0;i<=90;i++){
-        futureSteps.push(i);
-    }
-
-    const pastSegments =
-    buildTrackSegments(
-        pastSteps,
-        now
-    );
-    const futureSegments =
-    buildTrackSegments(
-        futureSteps,
-        now
-    );
-
-    pastLine.setLatLngs(
-        pastSegments
-    );
-    futureLine.setLatLngs(
-        futureSegments
-    );
-}
-
 loadISS();
 setInterval(
 updateISS,
 200
-);
-setInterval(
-updateTrack,
-30000
 );
 setInterval(
 loadISS,
