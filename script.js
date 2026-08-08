@@ -182,11 +182,10 @@ function buildTrackSegments(steps,now){
         if(current.length > 0){
             const previous =
             current[current.length-1];
-            const difference =
-            Math.abs(
-                point.lon - previous[1]
-            );
-            if(difference > 180){
+            const crossedDateline =
+            (previous[1] > 90 && point.lon < -90) ||
+            (previous[1] < -90 && point.lon > 90);
+            if(crossedDateline){
                 segments.push(current);
                 current = [];
             }
