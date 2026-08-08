@@ -2,88 +2,53 @@
 <html>
 <head>
 <title>ISS Monitor</title>
-
 <link rel="stylesheet" href="style.css">
-
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css">
-
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-
 </head>
-
-
 <body>
-
 <div class="container">
-
 <header>
-
 <h1>ISS MONITOR</h1>
-
 <div class="live">
 LIVE ●
 </div>
-
 </header>
-
-
 <div class="bar">
 ISS-25544
 <span>DATA LINK ACTIVE</span>
 <span id="time">--</span>
 </div>
-
-
 <div id="map"></div>
-
-
 <section class="telemetry">
-
 <div>
 <label>LATITUDE</label>
 <p id="lat">--</p>
 </div>
-
-
 <div>
 <label>LONGITUDE</label>
 <p id="lon">--</p>
 </div>
-
-
 <div>
 <label>ALTITUDE</label>
 <p id="alt">--</p>
 </div>
-
-
 <div>
 <label>VELOCITY</label>
 <p id="vel">--</p>
 </div>
-
-
 <div>
 <label>ORBIT PERIOD</label>
 <p>92.8 min</p>
 </div>
-
-
 <div>
 <label>INCLINATION</label>
 <p>51.6°</p>
 </div>
-
 </section>
-
-
 </div>
-
-
 <script src="script.js"></script>
-
 </body>
 </html>
